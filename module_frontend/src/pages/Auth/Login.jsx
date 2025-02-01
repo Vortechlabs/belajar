@@ -5,15 +5,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 function Login() {
-    const [email, setEmail] = useState([]);
-    const [password, setPassword] = useState([]);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleLogin = async (event) => {
         event.preventDefault();
         try{
-            const response = await axios.post('/signin', {email, password});
+            const response = await axios.post('/signin', {username, password});
             const {token, user} = response.data;
             console.log(response.data);
             login(token,user);
@@ -44,9 +44,9 @@ function Login() {
                         
                         <form onSubmit={handleLogin}> 
                            <div className="form-group my-3">
-                              <label htmlFor="email" className="mb-1 text-muted">Email</label>
-                              <input type="text" id="email" name="email" value={email}
-                            onChange={(e) => setEmail(e.target.value)} className="form-control" autoFocus />
+                              <label htmlFor="username" className="mb-1 text-muted">username</label>
+                              <input type="text" id="username" name="username" value={username}
+                            onChange={(e) => setUsername(e.target.value)} className="form-control" autoFocus />
                            </div> 
 
                            <div className="form-group my-3">
@@ -60,7 +60,7 @@ function Login() {
                                  <button type="submit" className="btn btn-primary w-100">Sign In</button>
                               </div>
                               <div className="col">
-                                 <Link to='/Register'><button className="btn btn-danger w-100">Sign up</button></Link>
+                                 <Link to='/auth/signup'><button className="btn btn-danger w-100">Sign up</button></Link>
                               </div>
                               
                            </div>

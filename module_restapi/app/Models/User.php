@@ -19,10 +19,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
     ];
+
+    public function game(){
+        return $this->hasMany(Games::class, 'created_by', 'id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,7 +45,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
+            'last_login_at' => 'datetime',
             'password' => 'hashed',
         ];
     }

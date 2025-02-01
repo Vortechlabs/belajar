@@ -8,11 +8,11 @@ export const AuthProvider = ({children}) => {
         return localStorage.getItem('token') || null;
     })
 
-    const login = (data) => {
-        setToken(data.token);
-        setUser(data.user);
-        localStorage.setItem('token', data.token);
-        console.log(data);
+    const login = (token, user) => {
+        setToken(token);
+        setUser(user);
+        localStorage.setItem('token', token);
+        console.log('User  logged in:', user);
     }
 
     return(
