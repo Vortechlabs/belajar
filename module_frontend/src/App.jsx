@@ -20,7 +20,7 @@ function App() {
       <Route path="/ManageGames" element={<ManageGames />}/>
       <Route path="/DetailGames/:id" element={<DetailGames />}/>
       <Route path="/ManageGamesForm" element={<ManageGamesForm />}/>
-
+      
     </Routes>
    </AuthProvider>
   )

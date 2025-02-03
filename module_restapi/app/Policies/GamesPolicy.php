@@ -8,59 +8,11 @@ use Illuminate\Auth\Access\Response;
 
 class GamesPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        return false;
-    }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Games $games): bool
+    public function modify(User $user, Games $games): Response
     {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Games $games): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Games $games): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Games $games): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Games $games): bool
-    {
-        return false;
+        return $user->id === $games->created_by
+        ? Response::allow()
+        : Response::deny('You dont own this game');
     }
 }

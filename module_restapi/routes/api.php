@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //})->middleware('auth:sanctum');
 
-Route::apiResource('user', UserController::class);
-
 Route::prefix('v1')->group(function(){
+
+    Route::apiResource('user', UserController::class);
+
     Route::apiResource('games', GamesController::class);
 
     Route::post('/signin', [AuthController::class, 'SignIn']);

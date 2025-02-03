@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Games;
 use App\Http\Requests\StoreGamesRequest;
 use App\Http\Requests\UpdateGamesRequest;
+use Illuminate\Routing\Controllers\Middleware;
 
 class GamesController extends Controller
 {
+
+    //public static function middleware(){
+    //    return[
+    //        new Middleware('auth:sanctum', except:['inddex', 'show'])
+    //    ];
+    //}
+
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +38,19 @@ class GamesController extends Controller
      */
     public function store(StoreGamesRequest $request)
     {
-        //
+        \Log::info('Authenticated User:', ['user' => $request->user()]);
+        
+        $fields = $request->validate([
+            'title' => 'required|min:3|max:60',
+            'description' => 'required|max:255',
+            'slug' => 'required|max:200'
+        ]);
+        
+        $fields['created_by'] = $request->user()->id; 
+
+        $games = $request->user()->game()->create($fields);
+
+        return $games;
     }
 
     /**
